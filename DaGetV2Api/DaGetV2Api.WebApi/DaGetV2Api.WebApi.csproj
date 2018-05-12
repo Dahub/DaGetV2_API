@@ -105,6 +105,24 @@
     <Folder Include="Controllers\" />
     <Folder Include="Models\" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\DaGetV2Api.Dal.EF\DaGetV2Api.Dal.EF.csproj">
+      <Project>{479149f3-7eb0-4958-ae44-d8787970f206}</Project>
+      <Name>DaGetV2Api.Dal.EF</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\DaGetV2Api.Dal.Interface\DaGetV2Api.Dal.Interface.csproj">
+      <Project>{358a9073-5282-4af4-809a-1ed70cabc4b3}</Project>
+      <Name>DaGetV2Api.Dal.Interface</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\DaGetV2Api.Domain\DaGetV2Api.Domain.csproj">
+      <Project>{4c04541b-616c-4ebf-9935-949840ad921e}</Project>
+      <Name>DaGetV2Api.Domain</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\DaGetV2Api.Service\DaGetV2Api.Service.csproj">
+      <Project>{68cb0766-03ea-458c-9962-0f8ae15e89d7}</Project>
+      <Name>DaGetV2Api.Service</Name>
+    </ProjectReference>
+  </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
