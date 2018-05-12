@@ -5,7 +5,7 @@ VisualStudioVersion = 15.0.27130.2010
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SQL", "SQL", "{7102966C-72F7-4303-8FD0-EE03758DEE94}"
 	ProjectSection(SolutionItems) = preProject
-		init.sql = init.sql
+		SQL\init.sql = SQL\init.sql
 	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DaGetV2Api.WebApi", "DaGetV2Api.WebApi\DaGetV2Api.WebApi.csproj", "{4003A121-969A-4648-AB55-39A69F4F392D}"
