@@ -78,7 +78,7 @@ create table Operations
 )
 go
 
-create table RecurentOperations
+create table ReccurentsOperations
 (
 	Id integer not null primary key identity(1,1),
 	CreationDate datetime not null,
