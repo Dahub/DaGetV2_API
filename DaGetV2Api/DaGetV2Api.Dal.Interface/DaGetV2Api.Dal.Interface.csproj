@@ -41,7 +41,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="IContext.cs" />
+    <Compile Include="IRepositoriesFactory.cs" />
+    <Compile Include="IRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Repositories\IBankAccountRepository.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\DaGetV2Api.Domain\DaGetV2Api.Domain.csproj">
@@ -49,5 +52,6 @@
       <Name>DaGetV2Api.Domain</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
