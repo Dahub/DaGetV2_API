@@ -7,6 +7,8 @@ namespace DaGetV2Api.Domain
         public int Id { get; set; }
         public DateTime CreationDate { get; set; }
         public DateTime ModificationDate { get; set; }
+        public int BankAccountId { get; set; }
+        public BankAccount BankAccount { get; set; }
         public int BankAccountOperationTypeId { get; set; }
         public BankAccountOperationType BankAccountOperationType { get; set; }
         public int OperationDayOfMonth { get; set; }

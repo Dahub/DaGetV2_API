@@ -55,13 +55,13 @@ go
 create table DefaultOperationsTypes
 (
 	Id integer not null primary key identity(1,1),
-	Wording nvarchar(128) not null
+	Wording nvarchar(256) not null
 )
 
 create table BankAccountOperationsTypes
 (
 	Id integer not null primary key identity(1,1),
-	Wording nvarchar(128) not null,
+	Wording nvarchar(256) not null,
 	FK_BankAccount integer not null foreign key references BankAccounts(Id)
 )
 
@@ -72,6 +72,7 @@ create table Operations
 	ModificationDate datetime not null,
 	FK_BankAccountOperationsType integer not null foreign key references BankAccountOperationsTypes(Id),
 	FK_ParentOperation integer null foreign key references Operations(Id),
+	FK_BankAccount integer not null foreign key references BankAccounts(Id),
 	OperationDate datetime not null,
 	Closed bit not null,
 	Amount decimal(18,2) not null
@@ -84,6 +85,7 @@ create table ReccurentsOperations
 	CreationDate datetime not null,
 	ModificationDate datetime not null,
 	FK_BankAccount integer not null foreign key references BankAccounts(Id),
+	FK_BankAccountOperationsType integer not null foreign key references BankAccountOperationsTypes(Id),
 	OperationDayOfMonth smallint not null,
 	StartDate datetime not null,
 	EndDate datetime not null,

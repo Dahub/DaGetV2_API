@@ -19,5 +19,6 @@ namespace DaGetV2Api.Domain
         public ICollection<UserBankAccount> UsersBankAccounts { get; set; }
         public ICollection<BankAccountOperationType> BankAccountOperationsTypes { get; set; }
         public ICollection<ReccurentOperation> ReccurentsOperations { get; set; }
+        public ICollection<Operation> Operations { get; set; }
     }
 }
