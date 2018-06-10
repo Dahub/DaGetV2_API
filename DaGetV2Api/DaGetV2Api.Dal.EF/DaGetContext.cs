@@ -50,6 +50,7 @@ namespace DaGetV2Api.Dal.EF
             modelBuilder.Entity<UserBankAccount>().Property(uba => uba.UserName).HasColumnName("UserName").HasColumnType("nvarchar").HasMaxLength(32).IsRequired();
             modelBuilder.Entity<UserBankAccount>().Property(uba => uba.BankAccountAccessId).HasColumnName("FK_BankAccountAccess").HasColumnType("int").IsRequired();
             modelBuilder.Entity<UserBankAccount>().Property(uba => uba.BankAccountId).HasColumnName("FK_BankAccount").HasColumnType("int").IsRequired();
+            modelBuilder.Entity<UserBankAccount>().Property(uba => uba.UserId).HasColumnName("UserId").HasColumnType("uniqueidentifier").IsRequired();
             modelBuilder.Entity<UserBankAccount>().HasRequired<BankAccountAccess>(uba => uba.BankAccountAccess).WithMany(baa => baa.UsersBankAccounts).HasForeignKey<int>(uba => uba.BankAccountAccessId);
             modelBuilder.Entity<UserBankAccount>().HasRequired<BankAccount>(uba => uba.BankAccount).WithMany(ba => ba.UsersBankAccounts).HasForeignKey<int>(uba => uba.BankAccountId);
 
@@ -102,7 +103,6 @@ namespace DaGetV2Api.Dal.EF
             modelBuilder.Entity<ReccurentOperation>().Property(ro => ro.November).HasColumnName("November").HasColumnType("bit").IsRequired();
             modelBuilder.Entity<ReccurentOperation>().Property(ro => ro.December).HasColumnName("December").HasColumnType("bit").IsRequired();
         }
-
 
         public void Commit()
         {

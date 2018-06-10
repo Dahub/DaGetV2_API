@@ -18,6 +18,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DaGetV2Api.Dal.EF", "DaGetV
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DaGetV2Api.Domain", "DaGetV2Api.Domain\DaGetV2Api.Domain.csproj", "{4C04541B-616C-4EBF-9935-949840AD921E}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DaGetCore.WebApi", "DaGetCore.WebApi\DaGetCore.WebApi.csproj", "{CCC1BFBD-0463-43AF-9850-FF386D33B64C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DaGetCore.Service", "DaGetCore.Service\DaGetCore.Service.csproj", "{92C2BAF3-D7E5-4BF6-8ACA-187E9D7330C7}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -44,6 +48,14 @@ Global
 		{4C04541B-616C-4EBF-9935-949840AD921E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4C04541B-616C-4EBF-9935-949840AD921E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4C04541B-616C-4EBF-9935-949840AD921E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CCC1BFBD-0463-43AF-9850-FF386D33B64C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CCC1BFBD-0463-43AF-9850-FF386D33B64C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CCC1BFBD-0463-43AF-9850-FF386D33B64C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CCC1BFBD-0463-43AF-9850-FF386D33B64C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{92C2BAF3-D7E5-4BF6-8ACA-187E9D7330C7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{92C2BAF3-D7E5-4BF6-8ACA-187E9D7330C7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{92C2BAF3-D7E5-4BF6-8ACA-187E9D7330C7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{92C2BAF3-D7E5-4BF6-8ACA-187E9D7330C7}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

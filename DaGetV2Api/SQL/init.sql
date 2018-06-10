@@ -43,11 +43,12 @@ create table UsersBankAccounts
 (
 	Id integer not null primary key identity(1,1),
 	UserName nvarchar(32) not null,
+	UserId uniqueidentifier not null,
 	FK_BankAccount integer not null foreign key references BankAccounts(Id),
 	FK_BankAccountAccess integer not null foreign key references BankAccountAccess(Id),
 	constraint UQ_UserNameBankAccount unique nonclustered
     (
-        UserName, FK_BankAccount
+        UserId, FK_BankAccount
     )
 )
 go
