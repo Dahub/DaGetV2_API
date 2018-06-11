@@ -16,9 +16,14 @@ namespace DaGetCore.WebApi
 {
     public class Startup
     {
-        public Startup(IConfiguration configuration)
+        public Startup(IHostingEnvironment env)
         {
-            Configuration = configuration;
+            var builder = new ConfigurationBuilder()
+                    .SetBasePath(env.ContentRootPath)
+                    .AddJsonFile("appsettings.json", optional: true, reloadOnChange: true)
+                    .AddJsonFile($"appsettings.{env.EnvironmentName}.json", optional: true)
+                    .AddEnvironmentVariables();
+            Configuration = builder.Build();
         }
 
         public IConfiguration Configuration { get; }
@@ -27,17 +32,14 @@ namespace DaGetCore.WebApi
         public void ConfigureServices(IServiceCollection services)
         {
             services.Configure<AppConfiguration>(Configuration.GetSection("AppConfiguration"));
-
-
             services.AddLogging();
-
-
             services.AddMvc();
+
+            var conf = Configuration.GetSection("AppConfiguration").Get<AppConfiguration>();
 
             services.AddAuthentication(options =>
             {
                 options.DefaultAuthenticateScheme = "Bearer";
-                // options.DefaultChallengeScheme = OAuthIntrospectionDefaults.AuthenticationScheme;                
             }).AddOAuthIntrospection(options =>
             {
                 options.Configuration = new OAuthIntrospectionConfiguration()
@@ -46,32 +48,10 @@ namespace DaGetCore.WebApi
                 };
 
                 options.IncludeErrorDetails = true;
-                options.Audiences.Add("DaGet");
-                options.ClientId = "_kZ2#412#Edcm-5f";
-                options.ClientSecret = "og3Rkf--red###2";
-                options.RequireHttpsMetadata = false;
-                //options.Events = new OAuthIntrospectionEvents()
-                //{
-                //    OnCreateTicket = context =>
-                //    {
-                //        c
-                //        context.HttpContext.User.AddIdentity(context.Identity);                     
-
-                //        return Task.FromResult(0);
-                //    },
-                //    OnRetrieveToken = context =>
-                //    {
-                //        return Task.FromResult(0);
-                //    },
-                //    OnValidateToken = context =>
-                //    {
-                //        return Task.FromResult(0);
-                //    },
-                //    OnSendIntrospectionRequest = context =>
-                //    {
-                //        return Task.FromResult(0);
-                //    }
-                //};
+                options.Audiences.Add(conf.Audience);
+                options.ClientId = conf.Login;
+                options.ClientSecret = conf.ServerSecret;
+                options.RequireHttpsMetadata = conf.RequireHttps;
             });
             services.AddAuthorization(options =>
             {

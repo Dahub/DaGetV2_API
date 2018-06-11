@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using AspNet.Security.OAuth.Introspection;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Identity;
 
 namespace DaGetCore.WebApi.Controllers
 {
@@ -31,6 +32,7 @@ namespace DaGetCore.WebApi.Controllers
         [Authorize(AuthenticationSchemes = "Bearer")]
         public void Post()
         {
+            
         }
 
         // PUT api/values/5

@@ -21,4 +21,6 @@
     <ProjectReference Include="..\DaGetCore.Service\DaGetCore.Service.csproj" />
   </ItemGroup>
 
+  <ProjectExtensions><VisualStudio><UserProperties /></VisualStudio></ProjectExtensions>
+
 </Project>

@@ -1,5 +1,8 @@
 ﻿using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
+using System.Linq;
+using System;
+using System.Collections.Generic;
 
 namespace DaGetCore.WebApi
 {
@@ -14,12 +17,39 @@ namespace DaGetCore.WebApi
 
         protected override Task HandleRequirementAsync(AuthorizationHandlerContext context, HaveScopeRequirement requirement)
         {
-            if (context.User == null || context.User.Identity == null || !context.User.Identity.IsAuthenticated)
-                context.Fail();
-            else
-                // claim = scope
-                //context.User.Identity.
+            try
+            {
+                if (context.User == null || context.User.Identity == null || !context.User.Identity.IsAuthenticated)
+                {
+                    context.Fail();
+                    return Task.FromResult(0);
+                }
+
+                var claim = ((System.Security.Claims.ClaimsIdentity)context.User.Identity).Claims.Where(c => c.Type.Equals("scope", StringComparison.OrdinalIgnoreCase)).FirstOrDefault();
+                
+                if(claim == null || String.IsNullOrEmpty(claim.Value))
+                {
+                    context.Fail();
+                    return Task.FromResult(0);
+                }
+
+                IList<string> claimScopes = claim.Value.Split(' ', StringSplitOptions.RemoveEmptyEntries);
+
+                foreach(var s in Scopes)
+                {
+                    if(!claimScopes.Contains(s, StringComparer.OrdinalIgnoreCase))
+                    {
+                        context.Fail();
+                        return Task.FromResult(0);
+                    }
+                }
+
                 context.Succeed(requirement);
+            }
+            catch
+            {
+                context.Fail();
+            }
 
             return Task.FromResult(0);
         }
