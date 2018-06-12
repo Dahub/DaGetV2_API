@@ -1,16 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using AspNet.Security.OAuth.Introspection;
 using DaGetCore.Service;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using AspNet.Security.OAuth.Introspection;
 using Microsoft.Extensions.Logging;
-using Microsoft.Extensions.Options;
 
 namespace DaGetCore.WebApi
 {
@@ -61,11 +55,6 @@ namespace DaGetCore.WebApi
                         policy.Requirements.Add(new HaveScopeRequirement("daget:bankaccount:write"));                        
                     });
             });
-        }
-
-        public void Testtruc(CreateTicketContext context)
-        {
-            var tt = context;
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
