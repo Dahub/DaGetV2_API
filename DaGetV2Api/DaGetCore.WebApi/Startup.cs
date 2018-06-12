@@ -58,7 +58,7 @@ namespace DaGetCore.WebApi
                 options.AddPolicy("CreateBankAccount",
                     policy =>
                     {
-                        policy.Requirements.Add(new HaveScopeRequirement("daget:bankaccount:rw"));                        
+                        policy.Requirements.Add(new HaveScopeRequirement("daget:bankaccount:write"));                        
                     });
             });
         }

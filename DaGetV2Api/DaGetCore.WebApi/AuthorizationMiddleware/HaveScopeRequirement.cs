@@ -25,16 +25,16 @@ namespace DaGetCore.WebApi
                     return Task.FromResult(0);
                 }
 
-                var claim = ((System.Security.Claims.ClaimsIdentity)context.User.Identity).Claims.Where(c => c.Type.Equals("scope", StringComparison.OrdinalIgnoreCase)).FirstOrDefault();
+                var claims = ((System.Security.Claims.ClaimsIdentity)context.User.Identity).Claims.Where(c => c.Type.Equals("scope", StringComparison.OrdinalIgnoreCase)).ToList();
                 
-                if(claim == null || String.IsNullOrEmpty(claim.Value))
+                if(claims == null || claims.Count == 0)
                 {
                     context.Fail();
                     return Task.FromResult(0);
                 }
 
-                IList<string> claimScopes = claim.Value.Split(' ', StringSplitOptions.RemoveEmptyEntries);
-
+                IList<string> claimScopes = claims.Select(c => c.Value).ToList();
+                    
                 foreach(var s in Scopes)
                 {
                     if(!claimScopes.Contains(s, StringComparer.OrdinalIgnoreCase))

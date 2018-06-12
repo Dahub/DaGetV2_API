@@ -18,6 +18,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\DaGetCore.Dal.EF\DaGetCore.Dal.EF.csproj" />
+    <ProjectReference Include="..\DaGetCore.Dal.Interface\DaGetCore.Dal.Interface.csproj" />
+    <ProjectReference Include="..\DaGetCore.Domain\DaGetCore.Domain.csproj" />
     <ProjectReference Include="..\DaGetCore.Service\DaGetCore.Service.csproj" />
   </ItemGroup>
 

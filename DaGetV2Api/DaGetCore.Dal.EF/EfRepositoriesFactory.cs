@@ -1,0 +1,24 @@
+﻿using DaGetCore.Dal.Interface;
+using Microsoft.EntityFrameworkCore;
+
+namespace DaGetCore.Dal.EF
+{
+    public class EfRepositoriesFactory : IRepositoriesFactory
+    {
+        public IContext CreateContext(string connexion)
+        {
+            var builder = new DbContextOptionsBuilder<DaGetContext>();
+            builder.UseSqlServer(connexion, b => b.MigrationsAssembly("DaGetCore.WebApi"));
+
+            return new DaGetContext(builder.Options);
+        }
+
+        public IBankAccountRepository GetBankAccountRepository(IContext context)
+        {
+            return new BankAccountRepository()
+            {
+                Context = context,
+            };
+        }
+    }
+}
