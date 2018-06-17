@@ -1,4 +1,5 @@
 ﻿using AspNet.Security.OAuth.Introspection;
+using DaGetCore.Dal.EF;
 using DaGetCore.Service;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -26,6 +27,13 @@ namespace DaGetCore.WebApi
         public void ConfigureServices(IServiceCollection services)
         {
             services.Configure<AppConfiguration>(Configuration.GetSection("AppConfiguration"));
+
+            services.AddTransient<IBankAccountService>(c => new BankAccountService()
+            {
+                Factory = new EfRepositoriesFactory(),
+                ConnexionString = Configuration.GetConnectionString("DaGetConnexionString")
+            });
+
             services.AddLogging();
             services.AddMvc();
 
@@ -38,7 +46,7 @@ namespace DaGetCore.WebApi
             {
                 options.Configuration = new OAuthIntrospectionConfiguration()
                 {
-                    IntrospectionEndpoint = "http://localhost:63293/introspect"
+                    IntrospectionEndpoint = conf.DaOAuthIntrospectUri.ToString()
                 };
 
                 options.IncludeErrorDetails = true;
@@ -52,8 +60,13 @@ namespace DaGetCore.WebApi
                 options.AddPolicy("CreateBankAccount",
                     policy =>
                     {
-                        policy.Requirements.Add(new HaveScopeRequirement("daget:bankaccount:write"));                        
+                        policy.Requirements.Add(new HaveScopeRequirement("daget:bankaccount:write"));
                     });
+                options.AddPolicy("ReadBankAccount",
+                  policy =>
+                  {
+                      policy.Requirements.Add(new HaveScopeRequirement("daget:bankaccount:read"));
+                  });
             });
         }
 
@@ -65,9 +78,8 @@ namespace DaGetCore.WebApi
                 app.UseDeveloperExceptionPage();
             }
 
+            app.UseExceptionHandler("/api/Error");
             factory.AddConsole(LogLevel.Information);
-            //app.UseAuthentication();
-
             app.UseMvc();
         }
     }
