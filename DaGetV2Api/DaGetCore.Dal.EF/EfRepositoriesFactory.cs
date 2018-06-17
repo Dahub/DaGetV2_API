@@ -20,5 +20,13 @@ namespace DaGetCore.Dal.EF
                 Context = context,
             };
         }
+
+        public IUserBankAccountRepository GetUserBankAccountRepository(IContext context)
+        {
+            return new UserBankAccountRepository()
+            {
+                Context = context,
+            };
+        }
     }
 }

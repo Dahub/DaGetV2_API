@@ -34,7 +34,7 @@ namespace DaGetCore.WebApi.Controllers
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
 
-            return Ok(_bankAccountService.Create(User.Identity.Name, model));
+            return Ok(_bankAccountService.Create(User.Identity.GetUserId(), User.Identity.Name, model));
         }
     }
 }

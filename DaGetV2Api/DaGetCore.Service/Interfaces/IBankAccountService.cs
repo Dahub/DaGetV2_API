@@ -1,10 +1,11 @@
 ﻿using DaGetCore.Service.Dto;
+using System;
 
 namespace DaGetCore.Service
 {
     public interface IBankAccountService
     {
-        BankAccountDto GetById(string userName, int id);
-        BankAccountDto Create(string userName, BankAccountDto toCreate);
+        BankAccountDto GetById(Guid? userId, int id);
+        BankAccountDto Create(Guid? userId, string userName, BankAccountDto toCreate);
     }
 }
