@@ -1,4 +1,5 @@
-﻿using DaGetCore.Service.Tools;
+﻿using DaGetCore.Constants;
+using DaGetCore.Service.Tools;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Http;
@@ -8,7 +9,7 @@ using System;
 namespace DaGetCore.WebApi.Controllers
 {
     [Produces("application/json")]
-    [Route("api/Error")]
+    [Route(Routes.error)]
     public class ErrorController : Controller
     {
         [AllowAnonymous]

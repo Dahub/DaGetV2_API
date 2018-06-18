@@ -16,7 +16,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DaGetCore.Domain", "DaGetCo
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DaGetCore.Dal.Interface", "DaGetCore.Dal.Interface\DaGetCore.Dal.Interface.csproj", "{38AE3DA3-6B14-438F-82C4-06353D3B9E1F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DaGetCore.Dal.EF", "DaGetCore.Dal.EF\DaGetCore.Dal.EF.csproj", "{78494178-F95A-4493-B264-0FEE4897CA8C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DaGetCore.Dal.EF", "DaGetCore.Dal.EF\DaGetCore.Dal.EF.csproj", "{78494178-F95A-4493-B264-0FEE4897CA8C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DaGetCore.Constants", "DaGetCore.Constants\DaGetCore.Constants.csproj", "{8B837045-71B9-412A-8F86-695803572341}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -44,6 +46,10 @@ Global
 		{78494178-F95A-4493-B264-0FEE4897CA8C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{78494178-F95A-4493-B264-0FEE4897CA8C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{78494178-F95A-4493-B264-0FEE4897CA8C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8B837045-71B9-412A-8F86-695803572341}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8B837045-71B9-412A-8F86-695803572341}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8B837045-71B9-412A-8F86-695803572341}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8B837045-71B9-412A-8F86-695803572341}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

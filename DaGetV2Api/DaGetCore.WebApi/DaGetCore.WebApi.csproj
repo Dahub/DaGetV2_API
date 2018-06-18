@@ -26,6 +26,7 @@
 
 
   <ItemGroup>
+    <ProjectReference Include="..\DaGetCore.Constants\DaGetCore.Constants.csproj" />
     <ProjectReference Include="..\DaGetCore.Dal.EF\DaGetCore.Dal.EF.csproj" />
     <ProjectReference Include="..\DaGetCore.Dal.Interface\DaGetCore.Dal.Interface.csproj" />
     <ProjectReference Include="..\DaGetCore.Domain\DaGetCore.Domain.csproj" />

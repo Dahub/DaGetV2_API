@@ -1,14 +1,14 @@
-﻿using DaGetCore.Service;
+﻿using DaGetCore.Constants;
+using DaGetCore.Service;
 using DaGetCore.Service.Dto;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System;
-using System.Linq;
 
 namespace DaGetCore.WebApi.Controllers
 {
     [Produces("application/json")]
-    [Route("api/BankAccount")]
+    [Route(Routes.bankAccount)]
     public class BankAccountController : Controller
     {
         private IBankAccountService _bankAccountService;

@@ -9,8 +9,13 @@ namespace DaGetCore.Service
     {
         public BankAccountDto Create(Guid? userId, string userName, BankAccountDto toCreate)
         {
+            BankAccountDto result = null;
+
             try
             {
+                if (userId == null)
+                    throw new DaGetServiceException("Impossible de créer le compte, utilisateur non défini");
+
                 using (var context = Factory.CreateContext(ConnexionString))
                 {
                     // création du compte
@@ -39,8 +44,14 @@ namespace DaGetCore.Service
                     };
                     ubaRepo.Add(userBankAccountToAdd);
 
-                    context.Commit();                    
+                    context.Commit();
+
+                    result = bankAccountToAdd.ToDto();
                 }
+            }
+            catch (DaGetServiceException)
+            {
+                throw;
             }
             catch (Exception ex)
             {
@@ -48,7 +59,7 @@ namespace DaGetCore.Service
                     String.Format("Erreur lors de création du compte pour l'utilisateur {0}", userId), ex);
             }
 
-            return toCreate;
+            return result;
         }
 
         public BankAccountDto GetById(Guid? userId, int id)

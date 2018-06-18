@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
+using System;
 
 namespace DaGetCore.WebApi
 {
@@ -78,7 +79,7 @@ namespace DaGetCore.WebApi
                 app.UseDeveloperExceptionPage();
             }
 
-            app.UseExceptionHandler("/api/Error");
+            app.UseExceptionHandler(string.Concat("/", Constants.Routes.error));
             factory.AddConsole(LogLevel.Information);
             app.UseMvc();
         }

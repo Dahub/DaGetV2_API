@@ -11,7 +11,7 @@ namespace DaGetCore.Service.Dto
 
         [Required(ErrorMessage = "Veuillez spécifier le type de compte BankAccountTypeId")]
         public int? BankAccountTypeId { get; set; }
-        public Uri BankAccountType { get; set; }
+        public string BankAccountType { get; set; }
 
         [Required(ErrorMessage = "Veuillez spécifier un nom pour le compte Wording")]
         public string Wording { get; set; }
@@ -20,9 +20,9 @@ namespace DaGetCore.Service.Dto
         public decimal Solde { get; set; }
         public DateTime? DateSolde { get; set; }
 
-        public Uri UsersBankAccounts { get; set; }
-        public Uri BankAccountOperationsTypes { get; set; }
-        public Uri ReccurentsOperations { get; set; }
-        public Uri Operations { get; set; }
+        public string UsersBankAccounts { get; set; }
+        public string BankAccountOperationsTypes { get; set; }
+        public string ReccurentsOperations { get; set; }
+        public string Operations { get; set; }
     }
 }
