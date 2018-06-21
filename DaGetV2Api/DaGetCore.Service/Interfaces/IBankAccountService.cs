@@ -7,5 +7,6 @@ namespace DaGetCore.Service
     {
         BankAccountDto GetById(Guid? userId, int id);
         BankAccountDto Create(Guid? userId, string userName, BankAccountDto toCreate);
+        BankAccountDto Update(Guid? userId, BankAccountDto toUpdate);
     }
 }

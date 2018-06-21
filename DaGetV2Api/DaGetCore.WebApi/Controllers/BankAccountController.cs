@@ -23,7 +23,7 @@ namespace DaGetCore.WebApi.Controllers
         [Authorize(AuthenticationSchemes = "Bearer")]
         public IActionResult Get(int id)
         {
-            throw new NotImplementedException();
+            return Ok(_bankAccountService.GetById(User.Identity.GetUserId(), id));
         }
 
         [HttpPost]
@@ -35,6 +35,17 @@ namespace DaGetCore.WebApi.Controllers
                 return BadRequest(ModelState);
 
             return Ok(_bankAccountService.Create(User.Identity.GetUserId(), User.Identity.Name, model));
+        }
+        
+        [HttpPost]
+        [Authorize(Policy = "UpdateBankAccount")]
+        [Authorize(AuthenticationSchemes = "Bearer")]
+        public IActionResult Put([FromBody] BankAccountDto model)
+        {
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
+
+            return Ok(_bankAccountService.Update(User.Identity.GetUserId(), model));
         }
     }
 }

@@ -63,6 +63,11 @@ namespace DaGetCore.WebApi
                     {
                         policy.Requirements.Add(new HaveScopeRequirement("daget:bankaccount:write"));
                     });
+                options.AddPolicy("UpdateBankAccount",
+                   policy =>
+                   {
+                       policy.Requirements.Add(new HaveScopeRequirement("daget:bankaccount:write"));
+                   });
                 options.AddPolicy("ReadBankAccount",
                   policy =>
                   {
