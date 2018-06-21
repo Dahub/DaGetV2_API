@@ -40,6 +40,7 @@ namespace DaGetCore.Dal.EF
             modelBuilder.Entity<BankAccount>().Property(ba => ba.Solde).HasColumnName("Solde").HasColumnType("decimal(18,2)").IsRequired();
             modelBuilder.Entity<BankAccount>().Property(ba => ba.SoldeInitial).HasColumnName("SoldeInitial").HasColumnType("decimal(18, 2)").IsRequired();
             modelBuilder.Entity<BankAccount>().Property(ba => ba.Wording).HasColumnName("Wording").HasColumnType("nvarchar").HasMaxLength(512).IsRequired();
+            modelBuilder.Entity<BankAccount>().Property(ba => ba.HadApplyCurrentOperationsThisMonth).HasColumnName("HadApplyCurrentOperationsThisMonth").HasColumnType("bit").IsRequired();
 
             modelBuilder.Entity<UserBankAccount>().ToTable("UsersBankAccounts");
             modelBuilder.Entity<UserBankAccount>().HasKey(uba => uba.Id);

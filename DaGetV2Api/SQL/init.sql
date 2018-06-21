@@ -35,7 +35,8 @@ create table BankAccounts
 	Number nvarchar(256) null,
 	SoldeInitial decimal(18,2) not null,
 	Solde decimal(18,2) not null,
-	DateSolde datetime not null
+	DateSolde datetime not null,
+	HadApplyCurrentOperationsThisMonth bit not null
 )
 go
 

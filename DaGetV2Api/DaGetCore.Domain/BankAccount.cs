@@ -15,6 +15,7 @@ namespace DaGetCore.Domain
         public decimal SoldeInitial { get; set; }
         public decimal Solde { get; set; }
         public DateTime DateSolde { get; set; }
+        public bool HadApplyCurrentOperationsThisMonth { get; set; }
 
         public ICollection<UserBankAccount> UsersBankAccounts { get; set; }
         public ICollection<BankAccountOperationType> BankAccountOperationsTypes { get; set; }

@@ -78,7 +78,8 @@ namespace DaGetCore.Service
                 {
                     using (var context = Factory.CreateContext(ConnexionString))
                     {
-                        throw new NotImplementedException();
+                        var baRepo = Factory.GetBankAccountRepository(context);
+                        toReturn = ExtractBankAccount(userId, id, baRepo).ToDto();
                     }
                 }
             }
@@ -106,12 +107,7 @@ namespace DaGetCore.Service
                     using (var context = Factory.CreateContext(ConnexionString))
                     {
                         var baRepo = Factory.GetBankAccountRepository(context);
-                        var ba = baRepo.GetAllByIdUserAndId(userId.Value, toUpdate.Id.Value);
-
-                        if (ba == null) // compte inexistant ou n'appartenant pas à cet utilisateur
-                        {
-                            throw new DaGetServiceException("Compte inexistant ou vous n'avez pas l'autorisation d'y accéder");
-                        }
+                        BankAccount ba = ExtractBankAccount(userId, toUpdate.Id.Value, baRepo);
 
                         ba.BankAccountTypeId = toUpdate.BankAccountTypeId.HasValue ? toUpdate.BankAccountTypeId.Value : ba.BankAccountTypeId;
                         ba.DateSolde = toUpdate.DateSolde.HasValue ? toUpdate.DateSolde.Value : ba.DateSolde;
@@ -120,7 +116,6 @@ namespace DaGetCore.Service
                         ba.Wording = toUpdate.Wording;
 
                         baRepo.Update(ba);
-                        
                     }
                 }
                 else
@@ -139,6 +134,18 @@ namespace DaGetCore.Service
             }
 
             return toReturn;
+        }
+
+        private static BankAccount ExtractBankAccount(Guid? userId, int bankAccountId, Dal.Interface.IBankAccountRepository baRepo)
+        {
+            var ba = baRepo.GetAllByIdUserAndId(userId.Value, bankAccountId);
+
+            if (ba == null) // compte inexistant ou n'appartenant pas à cet utilisateur
+            {
+                throw new DaGetServiceException("Compte inexistant ou vous n'avez pas l'autorisation d'y accéder");
+            }
+
+            return ba;
         }
     }
 }
