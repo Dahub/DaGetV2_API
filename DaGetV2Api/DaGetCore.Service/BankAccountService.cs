@@ -8,6 +8,37 @@ namespace DaGetCore.Service
 {
     public class BankAccountService : ServiceBase, IBankAccountService
     {
+        public void Delete(Guid? userId, BankAccountDto toDelete)
+        {
+            try
+            {
+                if (userId == null)
+                    throw new DaGetServiceException("Impossible de supprimer le compte, utilisateur non défini");
+
+                if (toDelete == null || !toDelete.Id.HasValue)
+                    throw new DaGetServiceException("Impossible de supprimer le compte, compte non défini");
+
+                // suppression des types d'opérations associées
+                using (var context = Factory.CreateContext(ConnexionString))
+                {
+                    var baoRepo = Factory.GetBankAccountOperationTypeRepository(context);
+                    foreach(var bao in baoRepo.GetAllByBankAccountId(toDelete.Id.Value))
+                    {
+                        baoRepo.Delete(bao);
+                    }
+                }
+            }
+            catch (DaGetServiceException)
+            {
+                throw;
+            }
+            catch (Exception ex)
+            {
+                throw new DaGetServiceException(
+                    String.Format("Erreur lors de suppression du compte pour l'utilisateur {0}", userId), ex);
+            }
+        }
+
         public BankAccountDto Create(Guid? userId, string userName, BankAccountDto toCreate)
         {
             BankAccountDto result = null;

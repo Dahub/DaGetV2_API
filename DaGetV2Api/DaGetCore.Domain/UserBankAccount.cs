@@ -2,9 +2,8 @@
 
 namespace DaGetCore.Domain
 {
-    public class UserBankAccount
+    public class UserBankAccount : DomainObjectBase
     {
-        public int Id { get; set; }
         public string UserName { get; set; }
         public int BankAccountId { get; set; }
         public BankAccount BankAccount { get; set; }

@@ -2,9 +2,8 @@
 
 namespace DaGetCore.Domain
 {
-    public class BankAccountOperationType
+    public class BankAccountOperationType : DomainObjectBase
     {
-        public int Id { get; set; }
         public string Wording { get; set; }
         public int BankAccountId { get; set; }
         public BankAccount BankAccount { get; set; }

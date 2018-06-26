@@ -7,19 +7,12 @@ using System.Linq;
 
 namespace DaGetCore.Dal.EF
 {
-    public class UserBankAccountRepository : IUserBankAccountRepository
+    internal class UserBankAccountRepository : RepositoryBase<UserBankAccount>, IUserBankAccountRepository
     {
-        public IContext Context { get; set; }
-
         public IEnumerable<UserBankAccount> GetByUserPublicId(Guid userId)
         {
             return ((DaGetContext)Context).UsersBankAccounts.Where(uba => uba.UserId.Equals(userId));
-        }
-
-        public void Add(UserBankAccount toAdd)
-        {
-            ((DbContext)Context).Set<UserBankAccount>().Add(toAdd);
-        }
+        }        
 
         public UserBankAccount GetByUserPublicIdAndBankAccountId(Guid userId, int bankAccountId)
         {

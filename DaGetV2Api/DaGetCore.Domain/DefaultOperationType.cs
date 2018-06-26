@@ -1,8 +1,7 @@
 ﻿namespace DaGetCore.Domain
 {
-    public class DefaultOperationType
+    public class DefaultOperationType : DomainObjectBase
     {
-        public int Id { get; set; }
         public string Wording { get; set; }
     }
 }

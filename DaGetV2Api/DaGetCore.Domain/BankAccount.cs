@@ -3,9 +3,8 @@ using System.Collections.Generic;
 
 namespace DaGetCore.Domain
 {
-    public class BankAccount
+    public class BankAccount : DomainObjectBase
     {
-        public int Id { get; set; }
         public DateTime CreationDate { get; set; }
         public DateTime ModificationDate { get; set; }
         public int BankAccountTypeId { get; set; }
