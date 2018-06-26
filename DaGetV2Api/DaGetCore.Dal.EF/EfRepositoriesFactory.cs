@@ -36,5 +36,21 @@ namespace DaGetCore.Dal.EF
                 Context = context,
             };
         }
+
+        public IOperationRepository GetOperationRepository(IContext context)
+        {
+            return new OperationRepository()
+            {
+                Context = context,
+            };
+        }
+
+        public IReccurentOperationRepository GetReccurentOperationRepository(IContext context)
+        {
+            return new ReccurentOperationRepository()
+            {
+                Context = context,
+            };
+        }
     }
 }

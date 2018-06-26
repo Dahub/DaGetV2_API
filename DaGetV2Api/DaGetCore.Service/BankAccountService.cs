@@ -18,14 +18,32 @@ namespace DaGetCore.Service
                 if (toDelete == null || !toDelete.Id.HasValue)
                     throw new DaGetServiceException("Impossible de supprimer le compte, compte non défini");
 
-                // suppression des types d'opérations associées
                 using (var context = Factory.CreateContext(ConnexionString))
                 {
+                    // on vérifie les droits
+                    var ubaRepo = Factory.GetUserBankAccountRepository(context);
+                    if(ubaRepo.GetByUserPublicIdAndBankAccountId(userId.Value, toDelete.Id.Value) == null)
+                        throw new DaGetServiceException("Impossible de supprimer le compte, compte non existant ou n'appartenant pas à l'utilisateur");
+
                     var baoRepo = Factory.GetBankAccountOperationTypeRepository(context);
-                    foreach(var bao in baoRepo.GetAllByBankAccountId(toDelete.Id.Value))
+                    foreach (var bao in baoRepo.GetAllByBankAccountId(toDelete.Id.Value))
                     {
                         baoRepo.Delete(bao);
                     }
+
+                    var oRepo = Factory.GetOperationRepository(context);
+                    foreach (var o in oRepo.GetAllByBankAccountId(toDelete.Id.Value))
+                    {
+                        oRepo.Delete(o);
+                    }
+
+                    var roRepo = Factory.GetReccurentOperationRepository(context);
+                    foreach (var ro in roRepo.GetAllByBankAccountId(toDelete.Id.Value))
+                    {
+                        roRepo.Delete(ro);
+                    }
+
+                    context.Commit();
                 }
             }
             catch (DaGetServiceException)

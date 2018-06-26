@@ -6,7 +6,6 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
-using System;
 
 namespace DaGetCore.WebApi
 {
@@ -73,6 +72,11 @@ namespace DaGetCore.WebApi
                   {
                       policy.Requirements.Add(new HaveScopeRequirement("daget:bankaccount:read"));
                   });
+                options.AddPolicy("DeleteBankAccount",
+                    policy =>
+                    {
+                        policy.Requirements.Add(new HaveScopeRequirement("daget:bankaccount:write"));
+                    });
             });
         }
 
