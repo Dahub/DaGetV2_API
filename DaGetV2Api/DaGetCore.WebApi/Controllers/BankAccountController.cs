@@ -37,7 +37,7 @@ namespace DaGetCore.WebApi.Controllers
             return Ok(_bankAccountService.Create(User.Identity.GetUserId(), User.Identity.Name, model));
         }
         
-        [HttpPost]
+        [HttpPut]
         [Authorize(Policy = "UpdateBankAccount")]
         [Authorize(AuthenticationSchemes = "Bearer")]
         public IActionResult Put([FromBody] BankAccountDto model)

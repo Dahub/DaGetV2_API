@@ -23,12 +23,17 @@ namespace DaGetCore.WebApi
 
         public IConfiguration Configuration { get; }
 
-        // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
             services.Configure<AppConfiguration>(Configuration.GetSection("AppConfiguration"));
 
             services.AddTransient<IBankAccountService>(c => new BankAccountService()
+            {
+                Factory = new EfRepositoriesFactory(),
+                ConnexionString = Configuration.GetConnectionString("DaGetConnexionString")
+            });
+
+            services.AddTransient<IOperationService>(c => new OperationService()
             {
                 Factory = new EfRepositoriesFactory(),
                 ConnexionString = Configuration.GetConnectionString("DaGetConnexionString")
@@ -55,8 +60,10 @@ namespace DaGetCore.WebApi
                 options.ClientSecret = conf.ServerSecret;
                 options.RequireHttpsMetadata = conf.RequireHttps;
             });
+
             services.AddAuthorization(options =>
             {
+                // bankAccount
                 options.AddPolicy("CreateBankAccount",
                     policy =>
                     {
@@ -76,6 +83,28 @@ namespace DaGetCore.WebApi
                     policy =>
                     {
                         policy.Requirements.Add(new HaveScopeRequirement("daget:bankaccount:write"));
+                    });
+
+                // operation
+                options.AddPolicy("CreateOperation",
+                  policy =>
+                  {
+                      policy.Requirements.Add(new HaveScopeRequirement("daget:operation:write"));
+                  });
+                options.AddPolicy("UpdateOperation",
+                   policy =>
+                   {
+                       policy.Requirements.Add(new HaveScopeRequirement("daget:operation:write"));
+                   });
+                options.AddPolicy("ReadOperation",
+                  policy =>
+                  {
+                      policy.Requirements.Add(new HaveScopeRequirement("daget:operation:read"));
+                  });
+                options.AddPolicy("DeleteOperation",
+                    policy =>
+                    {
+                        policy.Requirements.Add(new HaveScopeRequirement("daget:operation:write"));
                     });
             });
         }
