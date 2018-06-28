@@ -6,6 +6,15 @@ namespace DaGetCore.Service.Tools
 {
     internal static class ExtensionMethods
     {
+        internal static BankAccountTypeDto ToDto(this BankAccountType bat)
+        {
+            return new BankAccountTypeDto()
+            {
+                Id = bat.Id,
+                Wording = bat.Wording
+            };
+        }
+
         internal static OperationDto ToDto(this Operation o)
         {
             return new OperationDto()

@@ -50,9 +50,9 @@ namespace DaGetCore.WebApi.Controllers
         [HttpDelete("{id}")]
         [Authorize(Policy = "DeleteOperation")]
         [Authorize(AuthenticationSchemes = "Bearer")]
-        public IActionResult Delete(int id)
+        public IActionResult Delete(int bankAccountId, int id)
         {
-            _operationService.Delete(User.Identity.GetUserId(), id);
+            _operationService.Delete(User.Identity.GetUserId(), bankAccountId, id);
             return Ok();
         }
     }

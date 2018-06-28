@@ -8,13 +8,44 @@ namespace DaGetCore.Service
 {
     public class BankAccountService : ServiceBase, IBankAccountService
     {
+        public BankAccountTypeDto GetBankAccountType(Guid? userId, int id)
+        {
+            BankAccountTypeDto toReturn = null;
+
+            try
+            {
+                if (userId == null)
+                    throw new DaGetServiceException("Impossible de récupérer le type de compte, utilisateur non défini");
+
+                using (var context = Factory.CreateContext(ConnexionString))
+                {
+                    var ba = ExtractBankAccount(userId, id, context);
+                    var baTypeRepo = Factory.GetBankAccountTypeRepository(context);
+                    var baType = baTypeRepo.GetById(ba.BankAccountTypeId);
+
+                    toReturn = baType.ToDto();
+                }
+            }
+            catch (DaGetServiceException)
+            {
+                throw;
+            }
+            catch (Exception ex)
+            {
+                throw new DaGetServiceException(
+                    String.Format("Erreur lors de la récupération du type de compte pour le compte {0}", id), ex);
+            }
+
+            return toReturn;
+        }
+
         public void Delete(Guid? userId, int id)
         {
             try
             {
                 if (userId == null)
                     throw new DaGetServiceException("Impossible de supprimer le compte, utilisateur non défini");
-            
+
                 using (var context = Factory.CreateContext(ConnexionString))
                 {
                     // on vérifie les droits
@@ -161,7 +192,7 @@ namespace DaGetCore.Service
                     {
                         BankAccount ba = ExtractBankAccount(userId, toUpdate.Id.Value, context);
 
-                        var baRepo = Factory.GetBankAccountRepository(context);                     
+                        var baRepo = Factory.GetBankAccountRepository(context);
 
                         ba.BankAccountTypeId = toUpdate.BankAccountTypeId.HasValue ? toUpdate.BankAccountTypeId.Value : ba.BankAccountTypeId;
                         ba.DateSolde = toUpdate.DateSolde.HasValue ? toUpdate.DateSolde.Value : ba.DateSolde;
@@ -188,6 +219,6 @@ namespace DaGetCore.Service
             }
 
             return toReturn;
-        }       
+        }
     }
 }

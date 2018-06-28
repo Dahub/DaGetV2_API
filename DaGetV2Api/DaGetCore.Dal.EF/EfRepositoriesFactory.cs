@@ -52,5 +52,13 @@ namespace DaGetCore.Dal.EF
                 Context = context,
             };
         }
+
+        public IBankAccountTypeRepository GetBankAccountTypeRepository(IContext context)
+        {
+            return new BankAccountTypeRepository()
+            {
+                Context = context,
+            };
+        }
     }
 }

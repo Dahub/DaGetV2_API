@@ -69,7 +69,7 @@ namespace DaGetCore.Service
                 throw new DaGetServiceException(String.Format("Type d'opération {0} non autorisé sur ce compte {1}", operation.BankAccountOperationTypeId, operation.BankAccountId));
         }
 
-        public void Delete(Guid? userId, int id)
+        public void Delete(Guid? userId, int bankAccountId, int id)
         {
             try
             {    
@@ -79,8 +79,8 @@ namespace DaGetCore.Service
                     var baRepo = Factory.GetBankAccountRepository(context);
 
                     var toDelete = opRepo.GetById(id);
-                    if (toDelete == null)
-                        throw new DaGetServiceException(String.Format("Operation d'id {0} inconnue", id));
+                    if (toDelete == null || toDelete.BankAccountId != bankAccountId)
+                        throw new DaGetServiceException(String.Format("Operation d'id {0} inconnue", id));                    
 
                     BankAccount ba = ExtractBankAccount(userId, toDelete.BankAccountId, context);
 

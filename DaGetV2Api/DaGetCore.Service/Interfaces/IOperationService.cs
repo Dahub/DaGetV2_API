@@ -8,6 +8,6 @@ namespace DaGetCore.Service
         OperationDto GetById(Guid? userId, int id);
         OperationDto Create(Guid? userId, OperationDto toCreate);
         OperationDto Update(Guid? userId, OperationDto toUpdate);
-        void Delete(Guid? userId, int id);
+        void Delete(Guid? userId, int bankAccountId, int id);
     }
 }

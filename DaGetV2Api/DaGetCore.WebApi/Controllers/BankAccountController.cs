@@ -3,7 +3,6 @@ using DaGetCore.Service;
 using DaGetCore.Service.Dto;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using System;
 
 namespace DaGetCore.WebApi.Controllers
 {
@@ -55,6 +54,14 @@ namespace DaGetCore.WebApi.Controllers
         {
             _bankAccountService.Delete(User.Identity.GetUserId(), id);
             return Ok();
+        }
+
+        [HttpGet("{id}/" + Routes.bankAccountType)]
+        [Authorize(Policy = "ReadBankAccount")]
+        [Authorize(AuthenticationSchemes = "Bearer")]
+        public IActionResult BankAccountType(int id)
+        {
+            return Ok(_bankAccountService.GetBankAccountType(User.Identity.GetUserId(), id));
         }
     }
 }

@@ -8,5 +8,6 @@
         IBankAccountOperationTypeRepository GetBankAccountOperationTypeRepository(IContext context);
         IOperationRepository GetOperationRepository(IContext context);
         IReccurentOperationRepository GetReccurentOperationRepository(IContext context);
+        IBankAccountTypeRepository GetBankAccountTypeRepository(IContext context);
     }
 }
