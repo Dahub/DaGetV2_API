@@ -13,7 +13,7 @@ namespace DaGetCore.Dal.EF
             return ((DaGetContext)Context).UsersBankAccounts.Where(uba => uba.UserId.Equals(userId)).Select(uba => uba.BankAccount);
         }
 
-        public BankAccount GetAllByIdUserAndId(Guid userId, int id)
+        public BankAccount GetByIdUserAndId(Guid userId, int id)
         {
             return ((DaGetContext)Context).UsersBankAccounts.Where(uba => uba.UserId.Equals(userId)).Select(uba => uba.BankAccount).Where(ba => ba.Id.Equals(id)).FirstOrDefault();
         }

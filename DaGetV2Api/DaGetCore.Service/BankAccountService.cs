@@ -8,40 +8,45 @@ namespace DaGetCore.Service
 {
     public class BankAccountService : ServiceBase, IBankAccountService
     {
-        public void Delete(Guid? userId, BankAccountDto toDelete)
+        public void Delete(Guid? userId, int id)
         {
             try
             {
                 if (userId == null)
                     throw new DaGetServiceException("Impossible de supprimer le compte, utilisateur non défini");
-
-                if (toDelete == null || !toDelete.Id.HasValue)
-                    throw new DaGetServiceException("Impossible de supprimer le compte, compte non défini");
-
+            
                 using (var context = Factory.CreateContext(ConnexionString))
                 {
                     // on vérifie les droits
+                    var baRepo = Factory.GetBankAccountRepository(context);
+                    var bankAccount = ExtractBankAccount(userId, id, context);
+
                     var ubaRepo = Factory.GetUserBankAccountRepository(context);
-                    if(ubaRepo.GetByUserPublicIdAndBankAccountId(userId.Value, toDelete.Id.Value) == null)
+                    UserBankAccount userbankAccount = ubaRepo.GetByUserPublicIdAndBankAccountId(userId.Value, id);
+
+                    if (userbankAccount == null)
                         throw new DaGetServiceException("Impossible de supprimer le compte, compte non existant ou n'appartenant pas à l'utilisateur");
 
                     var baoRepo = Factory.GetBankAccountOperationTypeRepository(context);
-                    foreach (var bao in baoRepo.GetAllByBankAccountId(toDelete.Id.Value))
+                    foreach (var bao in baoRepo.GetAllByBankAccountId(id))
                     {
                         baoRepo.Delete(bao);
                     }
 
                     var oRepo = Factory.GetOperationRepository(context);
-                    foreach (var o in oRepo.GetAllByBankAccountId(toDelete.Id.Value))
+                    foreach (var o in oRepo.GetAllByBankAccountId(id))
                     {
                         oRepo.Delete(o);
                     }
 
                     var roRepo = Factory.GetReccurentOperationRepository(context);
-                    foreach (var ro in roRepo.GetAllByBankAccountId(toDelete.Id.Value))
+                    foreach (var ro in roRepo.GetAllByBankAccountId(id))
                     {
                         roRepo.Delete(ro);
                     }
+
+                    ubaRepo.Delete(userbankAccount);
+                    baRepo.Delete(bankAccount);
 
                     context.Commit();
                 }
@@ -127,8 +132,7 @@ namespace DaGetCore.Service
                 {
                     using (var context = Factory.CreateContext(ConnexionString))
                     {
-                        var baRepo = Factory.GetBankAccountRepository(context);
-                        toReturn = ExtractBankAccount(userId, id, baRepo).ToDto();
+                        toReturn = ExtractBankAccount(userId, id, context).ToDto();
                     }
                 }
             }
@@ -155,8 +159,9 @@ namespace DaGetCore.Service
                 {
                     using (var context = Factory.CreateContext(ConnexionString))
                     {
-                        var baRepo = Factory.GetBankAccountRepository(context);
-                        BankAccount ba = ExtractBankAccount(userId, toUpdate.Id.Value, baRepo);
+                        BankAccount ba = ExtractBankAccount(userId, toUpdate.Id.Value, context);
+
+                        var baRepo = Factory.GetBankAccountRepository(context);                     
 
                         ba.BankAccountTypeId = toUpdate.BankAccountTypeId.HasValue ? toUpdate.BankAccountTypeId.Value : ba.BankAccountTypeId;
                         ba.DateSolde = toUpdate.DateSolde.HasValue ? toUpdate.DateSolde.Value : ba.DateSolde;
@@ -183,18 +188,6 @@ namespace DaGetCore.Service
             }
 
             return toReturn;
-        }
-
-        private static BankAccount ExtractBankAccount(Guid? userId, int bankAccountId, Dal.Interface.IBankAccountRepository baRepo)
-        {
-            var ba = baRepo.GetAllByIdUserAndId(userId.Value, bankAccountId);
-
-            if (ba == null) // compte inexistant ou n'appartenant pas à cet utilisateur
-            {
-                throw new DaGetServiceException("Compte inexistant ou vous n'avez pas l'autorisation d'y accéder");
-            }
-
-            return ba;
-        }
+        }       
     }
 }

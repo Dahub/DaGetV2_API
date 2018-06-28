@@ -48,16 +48,12 @@ namespace DaGetCore.WebApi.Controllers
             return Ok(_bankAccountService.Update(User.Identity.GetUserId(), model));
         }
 
-        [HttpDelete]
+        [HttpDelete("{id}")]
         [Authorize(Policy = "DeleteBankAccount")]
         [Authorize(AuthenticationSchemes = "Bearer")]
-        public IActionResult Delete([FromBody] BankAccountDto model)
+        public IActionResult Delete(int id)
         {
-            if (!ModelState.IsValid)
-                return BadRequest(ModelState);
-
-            _bankAccountService.Delete(User.Identity.GetUserId(), model);
-
+            _bankAccountService.Delete(User.Identity.GetUserId(), id);
             return Ok();
         }
     }
